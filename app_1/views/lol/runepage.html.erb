@@ -1,0 +1,113 @@
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+     $(document).ready(function() {
+          $('img').tooltip();
+     });
+</script>
+<%= session[:guest] %><br>
+<%= @summonerTier %>    <%= @summonerDivision %>    <%= @summonerLeaguePoints %><br>
+<br>
+currentRunePage is <%= @currentRunePage %>
+<% if false %>
+#debug(show all rune)
+<% @runes.each do |rune| %>
+    <%= rune %><br>
+<% end %>
+<% @runesSum.each do |key, value| %> 
+  <font color=<%= @runesColor[key] %>><%=h "#{key.to_s}     x#{value.to_s}" %></font><br>
+<% end %> 
+<br>
+<% end %>
+<table>
+<% @runesSum.each do |key, value| %>
+    <tr>
+        <td style="width: 200px"><font color=<%= @runesColor[key] %>><%=key.to_s%></font></td>
+        <td><%=value.to_s%></td>
+    </tr>
+<% end %> 
+</table>
+<br>
+currentMasteryPage is <%= @currentMasteryPage %><br>
+
+<% if false %>
+#debug(show all masteries in raw data format)
+<% @masteries.each do |key, value| %> 
+  <%=h "#{key.to_s}     #{value.to_s}" %><br>
+<% end %> 
+<% end %> 
+
+<style>
+table,th,td
+{
+border:1px solid black;
+border-collapse:collapse;
+}
+<% if false %>
+td 
+{ 
+    width:64px; height:89px; vertical-align: top;
+}
+<% end %>
+<% if false %>
+div.masteries span{
+    position:absolute; 
+    left: -9999px;
+    background-color:#eae9d4;
+    padding: 10px;
+    font-family: 'Droid Sans', sans-serif;
+    font-size:.9em;
+    text-align: center; 
+    color: #495a62; 
+    -webkit-box-shadow: 0 0 20px rgba(0,0,0, .75));
+    -moz-box-shadow: 0 0 20px rgba(0,0,0, .75);
+    box-shadow: 0 0 20px rgba(0,0,0, .75);
+    -webkit-border-radius: 8px; 
+    -moz-border-radius: 8px; 
+    border-radius:8px;
+}
+div.masteries td:hover
+{
+    z-index: 50;
+    cursor:pointer;
+}
+div.masteries td:hover span
+{ 
+    position:absolute;
+    top:500px;
+    left:850px
+}
+<% end %>
+</style>
+<% @masteriesNumber.each do |table| %>
+    <div style="float:left;" class="masteries">
+    <table  style="width:64px">
+    <% table.each do |row| %>
+        <tr>
+            <% row.each do |col| %>
+                <td style="width:64px; height:89px; vertical-align: top">
+                    <%if(@masteriesNumberNotExist.include?(col))%>
+                        
+                    <%elsif(@masteries[col].nil?)%>
+                        <%= image_tag("mastery/gray_" + col.to_s + ".png", :title => @masteriesDescription[col], :class =>"btn btn-default", :style => "opacity:0.4", :data => { :toggle => "tooltip", :placement =>"right"})%>
+                        <% if false %>
+                        <span>
+                            <%= @masteriesDescription[col] %>
+                        </span>
+                        <% end %>
+                    <%else%>
+                        <%= image_tag("mastery/" + col.to_s + ".png", :title => @masteriesDescription[col], :class =>"btn btn-default", :data => { :toggle => "tooltip", :placement =>"right"})%>
+                        <% if false %>
+                        <span>
+                            <%= @masteriesDescription[col] %>
+                        </span>
+                        <% end %>
+                    <%end%>
+                    <%=@masteriesRank[col]%>
+                </td>
+            <% end %>
+        <tr>
+    <% end %>
+    </table>
+    </div>
+<% end %>
